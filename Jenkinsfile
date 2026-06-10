@@ -35,5 +35,14 @@ pipeline {
                     }
             }
         }
+        stage ('Docker Run'){
+            steps{
+                sh "docker stop my-running-app || true"
+
+                sh "docker rm my-running-app || true"
+
+                sh "docker run -d --name my-running-app -p 8081:80 ${IMAGE_NAME}:${IMAGE_TAG}"
+            }
+        }
     }
 }
